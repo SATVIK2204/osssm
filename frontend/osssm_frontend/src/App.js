@@ -31,6 +31,7 @@ class App extends Component {
   render() {
     const { lvri } = this.state 
     const current = lvri ? "Register" : "Login"
+    
     return (
       <div className="App">
         <div className="login">
@@ -46,11 +47,12 @@ class App extends Component {
 }
 
 const RightSide = props => {
+  console.log(props.current)
   return (
-      <div className="right-side" ref={props.containerRef} onClick={props.onClick}>
-          <div>
-              <div>{props.current}</div>
-          </div>
+      <div className="right-side right" ref={props.containerRef} onClick={props.onClick}>
+          <div className="inner-container">
+        <div className="text">{props.current}</div>
+      </div>
       </div>
   )
 }
