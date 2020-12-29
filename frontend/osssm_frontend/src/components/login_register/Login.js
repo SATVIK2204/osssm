@@ -1,10 +1,38 @@
 import React, { Component } from 'react'
+import axios from 'axios'
 
 export class Login extends Component {
     constructor(props) {
         super(props)
+
+        this.state = {
+            username: '',
+            password: ''
+        }
     }
-    
+
+    submitLogin = (e) => {
+        e.preventDefault()
+
+        const loginData = {
+            username: this.username,
+            password: this.password
+        }
+
+        console.log(loginData)
+
+        axios.post('users/login', loginData)
+            .then(res => {
+                console.log(res)
+                this.props.submitLogin(res.data.token)
+            })
+            .catch(e => {
+                console.log("error logging in because of ", e)
+            })
+
+
+    }
+
     render() {
         return (
             <div className="base-container" ref={this.props.containerRef}>

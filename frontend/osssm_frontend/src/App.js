@@ -9,13 +9,18 @@ class App extends Component {
   constructor(props) {
     super(props)
   
+    //localStorage.clear()
+    const t = localStorage.getItem('token')
+
     this.state = {
-       lvri : true
+       lvri : true,
+       token : t
     }
   }
 
   changeState() {
-    const { lvri } = this.state
+    const { lvri} = this.state
+    
     if(lvri){
       this.rightSide.classList.remove("right")
       this.rightSide.classList.add("left")
@@ -27,9 +32,17 @@ class App extends Component {
       lvri : !prevState.lvri
     }))
   }
+
+  submitLogin = (t) => {
+    console.log("login submitted , token is = " + t)
+    localStorage.setItem('token', t)
+    this.setState({
+      token : t
+    })
+  } 
   
   render() {
-    const { lvri } = this.state 
+    const { lvri, token } = this.state 
     const current = lvri ? "Register" : "Login"
     
     return (
@@ -39,12 +52,13 @@ class App extends Component {
             { lvri && <Login containerRef={ref => this.current = ref}/>}
             { !lvri && <Register containerRef={ref => this.current = ref}/>}
           </div>
-          <RightSide current={current} containerRef={ref => this.rightSide = ref} onClick={this.changeState.bind(this)}/>
         </div>
-      </div>
-    )
-  }
-}
+        </div>
+      )
+    }
+    }
+    
+
 
 const RightSide = props => {
   console.log(props.current)
